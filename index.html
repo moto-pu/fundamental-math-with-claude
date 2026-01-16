@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude君に教えてもらう基礎数学</title>
+  <meta name="description" content="AIアシスタントClaudeと一緒に学ぶ、集合論・位相空間論などの基礎数学">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="site-title">
+          Claude君に教えてもらう<br>基礎数学
+          <span>Fundamental Mathematics with Claude</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">はじめに</div>
+          <a href="index.html" class="nav-link active">ホーム</a>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">集合と位相</div>
+          <a href="set-and-topology/index.html" class="nav-link">概要</a>
+          <a href="set-and-topology/01-set-basics.html" class="nav-link nav-link-sub">集合論の基礎</a>
+          <a href="set-and-topology/02-topology-definition.html" class="nav-link nav-link-sub">位相空間の定義</a>
+          <a href="set-and-topology/03-topology-examples.html" class="nav-link nav-link-sub">位相の例</a>
+          <a href="set-and-topology/04-cofinite-topology.html" class="nav-link nav-link-sub">有限補位相</a>
+        </div>
+      </nav>
+    </aside>
+    
+    <!-- Mobile menu toggle -->
+    <button class="menu-toggle" aria-label="メニューを開く">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <header class="hero">
+          <h1>Claude君に教えてもらう<br>基礎数学</h1>
+          <p class="hero-subtitle">
+            AIアシスタントとの対話を通じて、数学の基礎概念を直感的に理解する
+          </p>
+        </header>
+        
+        <section>
+          <h2>このサイトについて</h2>
+          <p>
+            このサイトは、Anthropic社のAIアシスタント「Claude」との対話をもとに作成された数学の学習コンテンツです。
+            抽象的になりがちな数学の概念を、具体例や直感的な説明を通じて理解することを目指しています。
+          </p>
+          <p>
+            ソフトウェアエンジニアの視点から、プログラミングとの関連も交えながら解説しています。
+          </p>
+        </section>
+        
+        <section>
+          <h2>コンテンツ</h2>
+          <div class="topic-grid">
+            <article class="topic-card">
+              <h3 class="topic-card-title">集合と位相</h3>
+              <p class="topic-card-desc">
+                数学の基礎となる集合論と、「近さ」の概念を抽象化した位相空間論を学びます。
+                離散位相、密着位相、有限補位相など、具体的な例を通じて理解を深めます。
+              </p>
+              <a href="set-and-topology/index.html" class="topic-card-link">
+                学習を始める
+              </a>
+            </article>
+            
+            <article class="topic-card">
+              <h3 class="topic-card-title">線形代数 <small style="color: var(--text-muted);">（準備中）</small></h3>
+              <p class="topic-card-desc">
+                ベクトル空間、線形写像、行列、固有値など、応用数学の基礎となる線形代数を学びます。
+              </p>
+              <span class="topic-card-link" style="opacity: 0.5; cursor: not-allowed;">
+                Coming Soon
+              </span>
+            </article>
+            
+            <article class="topic-card">
+              <h3 class="topic-card-title">解析学 <small style="color: var(--text-muted);">（準備中）</small></h3>
+              <p class="topic-card-desc">
+                極限、連続性、微分、積分など、現代数学の根幹をなす解析学の基礎を学びます。
+              </p>
+              <span class="topic-card-link" style="opacity: 0.5; cursor: not-allowed;">
+                Coming Soon
+              </span>
+            </article>
+          </div>
+        </section>
+        
+        <section>
+          <h2>特徴</h2>
+          <ul>
+            <li><strong>具体例を重視</strong>：抽象的な定義だけでなく、豊富な具体例で直感を養います</li>
+            <li><strong>段階的な説明</strong>：前提知識から丁寧に積み上げていきます</li>
+            <li><strong>プログラマ視点</strong>：型理論やデータ構造との関連も解説します</li>
+            <li><strong>演習問題付き</strong>：理解を確認するための問題と解答を用意しています</li>
+          </ul>
+        </section>
+        
+        <footer class="site-footer">
+          <p>
+            © 2025 Claude君に教えてもらう基礎数学<br>
+            <small>Powered by conversations with Claude (Anthropic)</small>
+          </p>
+        </footer>
+      </div>
+    </main>
+  </div>
+  
+  <script src="js/main.js"></script>
+</body>
+</html>

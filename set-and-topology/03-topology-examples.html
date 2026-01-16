@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>位相の例 | Claude君に教えてもらう基礎数学</title>
+  <meta name="description" content="離散位相、密着位相、ユークリッド位相など、具体的な位相の例を詳しく学びます。">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="site-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="../index.html" class="site-title">
+          Claude君に教えてもらう<br>基礎数学
+          <span>Fundamental Mathematics with Claude</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">はじめに</div>
+          <a href="../index.html" class="nav-link">ホーム</a>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">集合と位相</div>
+          <a href="index.html" class="nav-link">概要</a>
+          <a href="01-set-basics.html" class="nav-link nav-link-sub">集合論の基礎</a>
+          <a href="02-topology-definition.html" class="nav-link nav-link-sub">位相空間の定義</a>
+          <a href="03-topology-examples.html" class="nav-link nav-link-sub active">位相の例</a>
+          <a href="04-cofinite-topology.html" class="nav-link nav-link-sub">有限補位相</a>
+        </div>
+      </nav>
+    </aside>
+    
+    <!-- Mobile menu toggle -->
+    <button class="menu-toggle" aria-label="メニューを開く">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <header class="article-header">
+          <h1>位相の例</h1>
+          <div class="article-meta">
+            <span class="article-tag">集合と位相</span>
+            <span>第3章</span>
+          </div>
+        </header>
+        
+        <article class="article-content">
+          
+          <p>
+            位相の定義は抽象的ですが、具体例を通じて「何を表しているのか」を掴んでいきましょう。
+          </p>
+          
+          <section>
+            <h2>例1：離散位相（最も細かい位相）</h2>
+            
+            <div class="definition-box">
+              <div class="box-title">定義：離散位相</div>
+              <p>集合 $X$ のすべての部分集合を開集合とする位相です。</p>
+              $$
+              \mathcal{O} = \mathcal{P}(X) = \{A \mid A \subset X\}
+              $$
+            </div>
+            
+            <h3>具体例：$X = \{a, b, c\}$ の場合</h3>
+            <p>開集合の族 $\mathcal{O}$ は：</p>
+<pre><code>𝒪 = {
+  ∅,
+  {a}, {b}, {c},
+  {a,b}, {a,c}, {b,c},
+  {a,b,c}
+}</code></pre>
+            <p>全部で $2^3 = 8$ 個の開集合があります。</p>
+            
+            <h3>公理の確認</h3>
+<pre><code>(O1) ∅ ∈ 𝒪 ✓,  X = {a,b,c} ∈ 𝒪 ✓
+(O2) 例：{a,b} ∩ {b,c} = {b} ∈ 𝒪 ✓
+(O3) 例：{a} ∪ {c} = {a,c} ∈ 𝒪 ✓</code></pre>
+            <p>すべての部分集合が開集合なので、どんな演算をしても結果は必ず $\mathcal{O}$ に入ります。</p>
+            
+            <h3>直感的な意味</h3>
+            <p>
+              離散位相では、<strong>すべての点が他の点から「孤立」</strong>しています。
+            </p>
+<pre><code>点 a の最小の開近傍 = {a}（a だけを含む）</code></pre>
+            <p>各点を「完全に分離」できるので、これは最も「細かい」区別ができる位相です。</p>
+            
+            <div class="note-box">
+              <div class="box-title">💻 プログラマ向け比喩</div>
+<pre><code>// 離散位相 ≈ すべてのオブジェクトが完全に区別可能
+// equals() が厳密な参照比較のようなもの
+
+if (obj1 == obj2)  // 同一オブジェクトのみ true</code></pre>
+            </div>
+          </section>
+          
+          <section>
+            <h2>例2：密着位相（最も粗い位相）</h2>
+            
+            <div class="definition-box">
+              <div class="box-title">定義：密着位相</div>
+              <p>開集合が $\emptyset$ と $X$ だけの位相です。</p>
+              $$
+              \mathcal{O} = \{\emptyset, X\}
+              $$
+            </div>
+            
+            <h3>具体例：$X = \{a, b, c\}$ の場合</h3>
+<pre><code>𝒪 = {∅, {a,b,c}}</code></pre>
+            <p>たった2個の開集合しかありません。</p>
+            
+            <h3>公理の確認</h3>
+<pre><code>(O1) ∅ ∈ 𝒪 ✓,  X ∈ 𝒪 ✓
+(O2) ∅ ∩ X = ∅ ∈ 𝒪 ✓,  X ∩ X = X ∈ 𝒪 ✓
+(O3) ∅ ∪ X = X ∈ 𝒪 ✓</code></pre>
+            
+            <h3>直感的な意味</h3>
+            <p>
+              密着位相では、<strong>どの点も他の点と「区別できない」</strong>状態です。
+            </p>
+<pre><code>点 a を含む最小の開集合 = X 全体（a だけを取り出せない！）</code></pre>
+            <p>すべての点が「くっついて」いて分離できません。</p>
+            
+            <div class="note-box">
+              <div class="box-title">💻 プログラマ向け比喩</div>
+<pre><code>// 密着位相 ≈ すべてのオブジェクトが等価
+// equals() が常に true を返すようなもの
+
+if (obj1.equals(obj2))  // 常に true</code></pre>
+            </div>
+          </section>
+          
+          <section>
+            <h2>例3：$\mathbb{R}$ の標準位相（ユークリッド位相）</h2>
+            
+            <p>これが最も重要で、解析学で使う位相です。</p>
+            
+            <div class="definition-box">
+              <div class="box-title">定義</div>
+              <p>
+                <strong>開区間</strong> $(a, b) = \{x \in \mathbb{R} \mid a < x < b\}$ を基本として、
+                開区間の任意の和集合を開集合とします。
+              </p>
+            </div>
+            
+            <h3>開集合の例</h3>
+<pre><code>✓ 開集合である：
+  (0, 1)           -- 開区間
+  (0, 1) ∪ (2, 3)  -- 開区間の和集合
+  (-∞, 5)          -- 無限開区間
+  ℝ 全体           -- 全体集合
+  ∅                -- 空集合
+
+✗ 開集合でない：
+  [0, 1]           -- 閉区間（端点を含む）
+  [0, 1)           -- 半開区間
+  {0}              -- 一点集合
+  ℤ（整数全体）     -- 離散的な点の集まり</code></pre>
+            
+            <h3>なぜ $[0, 1]$ は開集合でないのか？</h3>
+            <p>開集合の定義を思い出すと：</p>
+            <blockquote>
+              点 $x$ が開集合 $O$ に属する ⟺ $x$ を中心とする十分小さな開区間が $O$ に含まれる
+            </blockquote>
+            <p>端点 0 を考えてみましょう：</p>
+<pre><code>0 を含む開区間 (0-ε, 0+ε) = (-ε, ε)
+
+これは負の数を含むので [0,1] に収まらない！</code></pre>
+            <p>つまり、端点 0 の「周り」を $[0, 1]$ 内に取れないので、$[0, 1]$ は開集合ではありません。</p>
+            
+            <h3>視覚的イメージ</h3>
+            <div class="diagram">
+開集合 (0, 1)：
+──────(●━━━━━━━━●)──────
+      0         1
+      ↑ 端点を含まない（開いている）
+
+閉集合 [0, 1]：
+──────[●━━━━━━━━●]──────
+      0         1
+      ↑ 端点を含む（閉じている）
+
+半開区間 [0, 1)：
+──────[●━━━━━━━━●)──────
+      0         1
+      開でも閉でもない</div>
+          </section>
+          
+          <section>
+            <h2>位相の「粗さ」について</h2>
+            
+            <p>同じ集合 $X$ 上でも、異なる位相を入れられます。</p>
+<pre><code>密着位相 ⊂ ... ⊂ 標準位相 ⊂ ... ⊂ 離散位相
+（粗い）                              （細かい）</code></pre>
+            
+            <ul>
+              <li><strong>位相が細かい</strong> = 開集合が多い = 点をより細かく区別できる</li>
+              <li><strong>位相が粗い</strong> = 開集合が少ない = 点の区別があいまい</li>
+            </ul>
+          </section>
+          
+          <section>
+            <h2>比較表</h2>
+            
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th>位相</th>
+                    <th>開集合の数</th>
+                    <th>点の分離</th>
+                    <th>特徴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>離散位相</td>
+                    <td>$2^n$（最大）</td>
+                    <td>完全に分離</td>
+                    <td>すべてが見分けられる</td>
+                  </tr>
+                  <tr>
+                    <td>密着位相</td>
+                    <td>2（最小）</td>
+                    <td>分離不能</td>
+                    <td>何も区別できない</td>
+                  </tr>
+                  <tr>
+                    <td>$\mathbb{R}$の標準位相</td>
+                    <td>無限</td>
+                    <td>分離可能</td>
+                    <td>解析学の基礎</td>
+                  </tr>
+                  <tr>
+                    <td>有限補位相</td>
+                    <td>無限</td>
+                    <td>一点は分離不能</td>
+                    <td>代数幾何で使用</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          
+          <section>
+            <h2>演習問題</h2>
+            
+            <div class="exercise">
+              <div class="exercise-title">問題1</div>
+              <div class="exercise-problem">
+                <p>$X = \{1, 2, 3\}$ 上で、以下は位相になるか？</p>
+                <ol type="a">
+                  <li>$\mathcal{O} = \{\emptyset, \{1\}, \{1,2,3\}\}$</li>
+                  <li>$\mathcal{O} = \{\emptyset, \{1\}, \{2\}, \{1,2,3\}\}$</li>
+                  <li>$\mathcal{O} = \{\emptyset, \{1\}, \{2,3\}, \{1,2,3\}\}$</li>
+                </ol>
+              </div>
+            </div>
+            
+            <div class="exercise">
+              <div class="exercise-title">問題2</div>
+              <div class="exercise-problem">
+                <p>$\mathbb{R}$ の標準位相で、$\mathbb{Q}$（有理数全体）は開集合か？閉集合か？</p>
+              </div>
+            </div>
+            
+            <hr>
+            
+            <h3>解答</h3>
+            
+            <h4>問題1</h4>
+            
+            <p><strong>(a) $\mathcal{O} = \{\emptyset, \{1\}, \{1,2,3\}\}$</strong></p>
+<pre><code>(O1) ∅ ∈ 𝒪 ✓, {1,2,3} ∈ 𝒪 ✓
+(O2) {1} ∩ {1,2,3} = {1} ∈ 𝒪 ✓
+(O3) {1} ∪ {1,2,3} = {1,2,3} ∈ 𝒪 ✓
+
+答え：位相である ✓</code></pre>
+            
+            <p><strong>(b) $\mathcal{O} = \{\emptyset, \{1\}, \{2\}, \{1,2,3\}\}$</strong></p>
+<pre><code>(O3) {1} ∪ {2} = {1,2} ∈ 𝒪 ???
+
+→ {1,2} は 𝒪 に含まれていない！ ✗
+
+答え：位相ではない ✗</code></pre>
+            
+            <p><strong>(c) $\mathcal{O} = \{\emptyset, \{1\}, \{2,3\}, \{1,2,3\}\}$</strong></p>
+<pre><code>(O1) ∅ ∈ 𝒪 ✓, {1,2,3} ∈ 𝒪 ✓
+(O2) {1} ∩ {2,3} = ∅ ∈ 𝒪 ✓
+(O3) {1} ∪ {2,3} = {1,2,3} ∈ 𝒪 ✓
+
+答え：位相である ✓（分割位相）</code></pre>
+            
+            <h4>問題2</h4>
+            <p><strong>$\mathbb{Q}$ は開集合でも閉集合でもない</strong></p>
+            <p>
+              有理数と無理数はどちらも $\mathbb{R}$ の中で稠密であるため、
+              どの有理数の周りにも無理数があり、どの無理数の周りにも有理数があります。
+              したがって、$\mathbb{Q}$ もその補集合も開集合ではありません。
+            </p>
+          </section>
+          
+        </article>
+        
+        <!-- Navigation -->
+        <nav class="article-nav">
+          <a href="02-topology-definition.html" class="article-nav-link prev">
+            <span class="article-nav-label">前へ</span>
+            <span class="article-nav-title">位相空間の定義</span>
+          </a>
+          <a href="04-cofinite-topology.html" class="article-nav-link next">
+            <span class="article-nav-label">次へ</span>
+            <span class="article-nav-title">有限補位相</span>
+          </a>
+        </nav>
+        
+        <footer class="site-footer">
+          <p>© 2025 Claude君に教えてもらう基礎数学</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+  
+  <script src="../js/main.js"></script>
+</body>
+</html>

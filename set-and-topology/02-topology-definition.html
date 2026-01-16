@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>位相空間の定義 | Claude君に教えてもらう基礎数学</title>
+  <meta name="description" content="位相空間の定義と基本概念。開集合、閉集合、近傍、内部、閉包、境界について学びます。">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" 
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="site-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="../index.html" class="site-title">
+          Claude君に教えてもらう<br>基礎数学
+          <span>Fundamental Mathematics with Claude</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <div class="nav-section-title">はじめに</div>
+          <a href="../index.html" class="nav-link">ホーム</a>
+        </div>
+        
+        <div class="nav-section">
+          <div class="nav-section-title">集合と位相</div>
+          <a href="index.html" class="nav-link">概要</a>
+          <a href="01-set-basics.html" class="nav-link nav-link-sub">集合論の基礎</a>
+          <a href="02-topology-definition.html" class="nav-link nav-link-sub active">位相空間の定義</a>
+          <a href="03-topology-examples.html" class="nav-link nav-link-sub">位相の例</a>
+          <a href="04-cofinite-topology.html" class="nav-link nav-link-sub">有限補位相</a>
+        </div>
+      </nav>
+    </aside>
+    
+    <!-- Mobile menu toggle -->
+    <button class="menu-toggle" aria-label="メニューを開く">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="content-wrapper">
+        <header class="article-header">
+          <h1>位相空間の定義</h1>
+          <div class="article-meta">
+            <span class="article-tag">集合と位相</span>
+            <span>第2章</span>
+          </div>
+        </header>
+        
+        <article class="article-content">
+          
+          <section>
+            <h2>位相とは何か</h2>
+            <p>
+              位相とは、集合に「近さ」や「連続性」の概念を与える構造です。
+              距離を使わずに、「どの集合が開いているか」を指定することで、
+              連続性などの概念を定義できます。
+            </p>
+          </section>
+          
+          <section>
+            <h2>位相の定義</h2>
+            
+            <div class="definition-box">
+              <div class="box-title">定義：位相</div>
+              <p>
+                集合 $X$ の部分集合族 $\mathcal{O}$ が以下の3条件を満たすとき、
+                $\mathcal{O}$ を $X$ 上の<strong>位相</strong>といい、
+                $(X, \mathcal{O})$ を<strong>位相空間</strong>と呼びます。
+              </p>
+              <ol>
+                <li><strong>(O1)</strong> $\emptyset \in \mathcal{O}$, $X \in \mathcal{O}$</li>
+                <li><strong>(O2)</strong> $O_1, O_2 \in \mathcal{O} \Rightarrow O_1 \cap O_2 \in \mathcal{O}$<br>
+                    （有限個の共通部分で閉じる）</li>
+                <li><strong>(O3)</strong> $\{O_\lambda\}_{\lambda \in \Lambda} \subset \mathcal{O} \Rightarrow \bigcup_{\lambda \in \Lambda} O_\lambda \in \mathcal{O}$<br>
+                    （任意個の和集合で閉じる）</li>
+              </ol>
+              <p>$\mathcal{O}$ の元を<strong>開集合</strong>と呼びます。</p>
+            </div>
+            
+            <div class="note-box">
+              <div class="box-title">💡 公理の意味</div>
+              <ul>
+                <li><strong>(O1)</strong>：空集合と全体集合は常に開集合</li>
+                <li><strong>(O2)</strong>：開集合を有限個交わらせても開集合</li>
+                <li><strong>(O3)</strong>：開集合をいくつ合わせても開集合（無限個でもOK）</li>
+              </ul>
+            </div>
+          </section>
+          
+          <section>
+            <h2>閉集合</h2>
+            
+            <div class="definition-box">
+              <div class="box-title">定義：閉集合</div>
+              <p>開集合の補集合を<strong>閉集合</strong>と呼びます。</p>
+              $$
+              F \text{ が閉集合} \Leftrightarrow F^c \text{ が開集合}
+              $$
+            </div>
+            
+            <div class="note-box">
+              <div class="box-title">⚠️ 注意</div>
+              <p>
+                「開」と「閉」は排他的ではありません。
+                $\emptyset$ と $X$ は<strong>開かつ閉</strong>（閉開集合）です。
+              </p>
+              <p>
+                また、「開でも閉でもない」集合も存在します。
+              </p>
+            </div>
+          </section>
+          
+          <section>
+            <h2>近傍</h2>
+            
+            <div class="definition-box">
+              <div class="box-title">定義：近傍</div>
+              <p>
+                点 $x \in X$ に対して、$x$ を含む開集合を含む集合を
+                $x$ の<strong>近傍</strong>といいます。
+              </p>
+              $$
+              N \text{ が } x \text{ の近傍} \Leftrightarrow \exists O \in \mathcal{O}: x \in O \subset N
+              $$
+            </div>
+            
+            <p>
+              直感的には、「$x$ の周りの領域」を表します。
+              近傍自体は開集合である必要はありませんが、$x$ を含む開集合を含んでいる必要があります。
+            </p>
+          </section>
+          
+          <section>
+            <h2>内部・閉包・境界</h2>
+            
+            <p>集合 $A \subset X$ に対して、以下の概念を定義します。</p>
+            
+            <div class="definition-box">
+              <div class="box-title">内部 (interior)</div>
+              <p>$A$ に含まれる最大の開集合を $A$ の<strong>内部</strong>といい、$\text{int}(A)$ と書きます。</p>
+              $$
+              \text{int}(A) = \bigcup\{O \mid O \subset A, O \text{ は開集合}\}
+              $$
+            </div>
+            
+            <div class="definition-box">
+              <div class="box-title">閉包 (closure)</div>
+              <p>$A$ を含む最小の閉集合を $A$ の<strong>閉包</strong>といい、$\text{cl}(A)$ または $\bar{A}$ と書きます。</p>
+              $$
+              \text{cl}(A) = \bigcap\{F \mid A \subset F, F \text{ は閉集合}\}
+              $$
+            </div>
+            
+            <div class="definition-box">
+              <div class="box-title">境界 (boundary)</div>
+              $$
+              \partial A = \text{cl}(A) \setminus \text{int}(A)
+              $$
+            </div>
+            
+            <div class="example-box">
+              <div class="box-title">例：$\mathbb{R}$ の標準位相で $A = (0, 1]$</div>
+<pre><code>int(A) = (0, 1)    -- 端点を含まない
+cl(A)  = [0, 1]    -- 端点を含む
+∂A     = {0, 1}    -- 端点のみ</code></pre>
+            </div>
+          </section>
+          
+          <section>
+            <h2>連続写像</h2>
+            
+            <div class="definition-box">
+              <div class="box-title">定義：連続写像</div>
+              <p>
+                位相空間 $(X, \mathcal{O}_X)$ から $(Y, \mathcal{O}_Y)$ への写像 $f: X \to Y$ が<strong>連続</strong>であるとは：
+              </p>
+              $$
+              \forall V \in \mathcal{O}_Y: f^{-1}(V) \in \mathcal{O}_X
+              $$
+              <p>つまり「開集合の逆像が開集合」であることです。</p>
+            </div>
+            
+            <p>
+              これは ε-δ 論法による連続性の定義を一般化したものです。
+              距離空間では、この定義と ε-δ 定義が同値になります。
+            </p>
+          </section>
+          
+          <section>
+            <h2>同相写像</h2>
+            
+            <div class="definition-box">
+              <div class="box-title">定義：同相写像</div>
+              <p>
+                $f: X \to Y$ が<strong>同相写像</strong>であるとは、
+                $f$ が全単射かつ $f$ と $f^{-1}$ がともに連続であることです。
+              </p>
+            </div>
+            
+            <p>
+              同相写像が存在するとき、$X$ と $Y$ は<strong>同相</strong>であるといい、
+              位相的に「同じ形」とみなします。
+            </p>
+            
+            <div class="note-box">
+              <div class="box-title">有名な例</div>
+              <p>コーヒーカップとドーナツ（トーラス）は同相です。どちらも「穴が1つ」ある形状だからです。</p>
+            </div>
+          </section>
+          
+        </article>
+        
+        <!-- Navigation -->
+        <nav class="article-nav">
+          <a href="01-set-basics.html" class="article-nav-link prev">
+            <span class="article-nav-label">前へ</span>
+            <span class="article-nav-title">集合論の基礎</span>
+          </a>
+          <a href="03-topology-examples.html" class="article-nav-link next">
+            <span class="article-nav-label">次へ</span>
+            <span class="article-nav-title">位相の例</span>
+          </a>
+        </nav>
+        
+        <footer class="site-footer">
+          <p>© 2025 Claude君に教えてもらう基礎数学</p>
+        </footer>
+      </div>
+    </main>
+  </div>
+  
+  <script src="../js/main.js"></script>
+</body>
+</html>
