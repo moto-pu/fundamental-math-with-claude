@@ -84,6 +84,84 @@
           </section>
           
           <section>
+            <h2>「族」とは何か</h2>
+            
+            <p>
+              位相の定義に入る前に、「族（ぞく）」という用語を理解しておきましょう。
+              直感的には<strong>「集合の集まり」</strong>のことです。
+            </p>
+            
+            <h3>集合の集合</h3>
+<pre><code>A = {1, 2, 3}        ← これは「元の集まり」
+ℱ = {{1}, {2,3}, {1,2,3}}  ← これは「集合の集まり」= 族</code></pre>
+            
+            <p>
+              位相の定義で出てくる「部分集合族 $\mathcal{O}$」というのは、
+              「$X$ の部分集合を元として持つ集合」ということです。
+            </p>
+            
+            <div class="example-box">
+              <div class="box-title">例：$X = \{a, b\}$ の部分集合族</div>
+              <p>$X$ のすべての部分集合を集めると：</p>
+              $$
+              \mathcal{P}(X) = \{\emptyset, \{a\}, \{b\}, \{a,b\}\}
+              $$
+              <p>この $\mathcal{P}(X)$ は「$X$ の部分集合の族」です。</p>
+            </div>
+            
+            <h3>添字付けられた族</h3>
+            <p>より一般的に、<strong>添字集合</strong>を使って集合を並べたものも族と呼びます。</p>
+            
+            <div class="definition-box">
+              <div class="box-title">記法</div>
+              $$
+              \{A_\lambda\}_{\lambda \in \Lambda} \text{ または } (A_\lambda)_{\lambda \in \Lambda}
+              $$
+              <ul>
+                <li>$\Lambda$：添字集合（インデックスの集合）</li>
+                <li>$\lambda$：個々の添字（インデックス）</li>
+                <li>$A_\lambda$：添字 $\lambda$ に対応する集合</li>
+              </ul>
+            </div>
+            
+            <div class="example-box">
+              <div class="box-title">具体例</div>
+<pre><code>添字集合 Λ = {1, 2, 3} として
+
+A₁ = {a, b}
+A₂ = {c}
+A₃ = {a, c, d}
+
+族 {Aλ}λ∈Λ = {A₁, A₂, A₃} = {{a,b}, {c}, {a,c,d}}</code></pre>
+            </div>
+            
+            <div class="note-box">
+              <div class="box-title">💻 プログラマ向け比喩</div>
+<pre><code># 添字付き族 ≈ 辞書（Dictionary / Map）
+family = {
+    1: {'a', 'b'},
+    2: {'c'},
+    3: {'a', 'c', 'd'}
+}
+
+# Λ = family.keys() = {1, 2, 3}
+# A₂ = family[2] = {'c'}</code></pre>
+            </div>
+            
+            <h3>位相の定義での使われ方</h3>
+            <p>位相の公理 (O3) を見てみましょう：</p>
+            $$
+            \{O_\lambda\}_{\lambda \in \Lambda} \subset \mathcal{O} \Rightarrow \bigcup_{\lambda \in \Lambda} O_\lambda \in \mathcal{O}
+            $$
+            <p>これは：</p>
+            <ul>
+              <li>開集合の族 $\{O_\lambda\}_{\lambda \in \Lambda}$ があるとき（有限個でも無限個でも）</li>
+              <li>その和集合 $\bigcup_{\lambda \in \Lambda} O_\lambda$ も開集合である</li>
+            </ul>
+            <p>という意味です。</p>
+          </section>
+          
+          <section>
             <h2>位相の定義</h2>
             
             <div class="definition-box">
